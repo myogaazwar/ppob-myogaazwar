@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
-import ProtectedRoute from './middleware/protectedRoute.jsx';
+import ProtectedRoute from './middleware/ProtectedRoute.jsx';
 import HomeLayout from './components/Layouts/HomeLayout.jsx';
 import TopUp from './pages/TopUp.jsx';
 import NotFound from './pages/NotFound.jsx';
