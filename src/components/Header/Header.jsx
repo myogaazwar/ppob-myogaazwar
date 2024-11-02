@@ -87,7 +87,10 @@ const Header = () => {
             <NavItem title={'Transaction'} href={'/home/transaction'} />
             <NavItem title={'Akun'} href={'/home/akun'} />
           </div>
-          <GiHamburgerMenu onClick={handleOpenNavitem} className='sm:hidden' />
+          <GiHamburgerMenu
+            onClick={handleOpenNavitem}
+            className='sm:hidden text-2xl'
+          />
         </nav>
       </header>
 
