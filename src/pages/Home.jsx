@@ -68,7 +68,7 @@ const Home = () => {
             ))}
           </section>
 
-          <section className='mt-10 '>
+          <section className='my-10 '>
             <h3 className='font-semibold mb-5'>Temukan promo menarik</h3>
 
             <div className='flex gap-x-5 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'>
