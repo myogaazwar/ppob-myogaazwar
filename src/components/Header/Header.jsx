@@ -1,16 +1,35 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/WebsiteAssets/Logo.png';
 import profileImageDefault from '../../assets/WebsiteAssets/Profile Photo.png';
-import { Link } from 'react-router-dom';
 import NavItem from './NavItem';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import axios from 'axios';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 const Header = () => {
   const [users, setUsers] = useState([]);
   const [usersBalance, setUsersBalance] = useState([]);
   const [viewBalance, setViewBalance] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [openNavItem, setOpenNavItem] = useState(false);
+
+  const handleViewBalance = () => {
+    setViewBalance((prevViewBalance) => !prevViewBalance);
+  };
+
+  const handleOpenNavitem = () => {
+    setOpenNavItem((prevOpenNavItem) => !prevOpenNavItem);
+  };
+
+  const handleResize = () => {
+    if (window.innerWidth >= 640) {
+      setOpenNavItem(false);
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -45,11 +64,8 @@ const Header = () => {
       }
     };
     fetchData();
+    handleResize();
   }, []);
-
-  const handleViewBalance = () => {
-    setViewBalance((prevViewBalance) => !prevViewBalance);
-  };
 
   const imageProfile =
     users.profile_image !==
@@ -60,19 +76,50 @@ const Header = () => {
   return (
     <>
       <header className='w-full border-b-2 px-4 '>
-        <nav className='w-full flex h-20 justify-between md:max-w-7xl md:mx-auto '>
+        <nav className='w-full flex items-center h-20 justify-between md:max-w-7xl md:mx-auto '>
           <Link to={'/home'} className='flex items-center gap-x-2'>
             <img src={logo} alt='Logo SIMS PPOB' />
             <h1 className='font-semibold'>SIMS PPOB</h1>
           </Link>
 
-          <div className='flex items-center gap-x-10 font-medium'>
+          <div className=' hidden sm:flex items-center gap-x-10 font-medium text-end'>
             <NavItem title={'Top Up'} href={'/home/top-up'} />
             <NavItem title={'Transaction'} href={'/home/transaction'} />
             <NavItem title={'Akun'} href={'/home/akun'} />
           </div>
+          <GiHamburgerMenu onClick={handleOpenNavitem} className='sm:hidden' />
         </nav>
       </header>
+
+      <div
+        className={`${
+          openNavItem
+            ? '  translate-y-0 opacity-100'
+            : '-translate-x-60 opacity-0 '
+        } bg-white absolute border-b-2 h-60 rounded-b-xl shadow-lg flex flex-col justify-center w-full p-4 transition-all gap-y-5 text-black font-bold uppercase text-center  md:max-w-7xl md:mx-auto`}
+      >
+        <NavItem
+          title={'Top Up'}
+          href={'/home/top-up'}
+          className={
+            'rounded-lg border-2 bg-white h-10 flex items-center justify-center'
+          }
+        />
+        <NavItem
+          title={'Transaction'}
+          href={'/home/transaction'}
+          className={
+            'rounded-lg border-2 bg-white  h-10 flex items-center justify-center'
+          }
+        />
+        <NavItem
+          title={'Akun'}
+          href={'/home/akun'}
+          className={
+            'rounded-lg border-2 bg-white h-10 flex items-center justify-center'
+          }
+        />
+      </div>
 
       {loading ? null : (
         <section className='w-full px-4  mt-5 flex flex-col gap-y-4 md:flex-row  md:max-w-7xl md:mx-auto'>

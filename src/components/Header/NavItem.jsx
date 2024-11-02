@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const NavItem = ({ title, href }) => {
+const NavItem = ({ title, href, className }) => {
   return (
     <NavLink
       to={href}
       className={({ isActive }) =>
         isActive
-          ? 'w-fit text-end text-red-500'
-          : 'w-fit text-end hover:text-red-600 transition-colors duration-300'
+          ? `  text-red-500 ${className}`
+          : ` hover:text-red-600 transition-colors duration-300 ${className}`
       }
     >
       {title}
