@@ -6,9 +6,9 @@ const HomeLayout = () => {
   return (
     <div>
       <Header />
-      <section className='px-4 xl:px-0 md:max-w-7xl md:mx-auto'>
+      <main className='px-4 pb-5 xl:px-0 md:max-w-7xl md:mx-auto'>
         <Outlet />
-      </section>
+      </main>
     </div>
   );
 };
