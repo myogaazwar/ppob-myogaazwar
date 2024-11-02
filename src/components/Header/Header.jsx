@@ -145,7 +145,7 @@ const Header = () => {
               onClick={handleViewBalance}
               className='text-sm flex items-center gap-x-3 max-w-fit'
             >
-              <p>Lihat Saldo</p>
+              <p>{viewBalance ? 'Tutup Saldo' : 'Lihat Saldo'}</p>
               {viewBalance ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
