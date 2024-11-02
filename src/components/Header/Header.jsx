@@ -98,7 +98,7 @@ const Header = () => {
         className={`${
           openNavItem
             ? '  translate-y-0 opacity-100'
-            : '-translate-x-60 opacity-0 '
+            : '-translate-x-72 opacity-0 -z-50  '
         } bg-white absolute border-b-2 h-60 rounded-b-xl shadow-lg flex flex-col justify-center w-full p-4 transition-all gap-y-5 text-black font-bold uppercase text-center  md:max-w-7xl md:mx-auto`}
       >
         <NavItem
