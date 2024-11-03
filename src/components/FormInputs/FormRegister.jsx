@@ -35,7 +35,6 @@ const FormRegister = () => {
       return;
     }
 
-    // Prepare user data
     const userData = {
       email,
       first_name: firstName,

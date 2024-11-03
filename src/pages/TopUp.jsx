@@ -1,17 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import Input from '../components/Elements/Input/Input';
 import Button from '../components/Elements/Button/Button';
 import InputForm from '../components/Elements/Input/Index';
 
 import { IoWalletOutline } from 'react-icons/io5';
+import axios from 'axios';
 
 const TopUp = () => {
   const [valueTopUp, setValueTopUp] = useState('');
 
   const TopUpNumbers = [10000, 20000, 50000, 100000, 250000, 500000];
+  const token = localStorage.getItem('token');
 
   const handleValueTopup = (e) => {
     setValueTopUp(e.target.value);
+  };
+
+  const handleTopUp = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        'https://take-home-test-api.nutech-integrasi.com/topup',
+        { top_up_amount: valueTopUp },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(valueTopUp);
   };
 
   return (
@@ -34,6 +56,7 @@ const TopUp = () => {
             onChange={handleValueTopup}
           />
           <Button
+            onClick={handleTopUp}
             classname={` ${
               valueTopUp ? 'bg-red-500' : 'bg-stone-300'
             }  text-white font-semibold`}
