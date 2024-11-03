@@ -13,6 +13,8 @@ const InputForm = ({
   iconEye,
   value,
   onChange,
+  max,
+  min,
 }) => {
   return (
     <div className='relative mt-5 text-slate-400'>
@@ -28,6 +30,8 @@ const InputForm = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        max={max}
+        min={min}
       />
     </div>
   );
