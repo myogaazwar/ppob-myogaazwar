@@ -21,7 +21,7 @@ const TopUp = () => {
         <h1 className='font-semibold text-xl'>Nominal Top Up</h1>
       </div>
 
-      <section className='flex gap-x-5'>
+      <section className='xl:flex gap-x-5'>
         <div className='w-full flex flex-col gap-y-5'>
           <InputForm
             id={'valueTopUp'}
@@ -33,19 +33,21 @@ const TopUp = () => {
             icon={<IoWalletOutline />}
           />
           <Button
-            classname={'bg-stone-300 text-white font-semibold'}
+            classname={` ${
+              valueTopUp ? 'bg-red-500' : 'bg-stone-300'
+            }  text-white font-semibold`}
             disabled={!valueTopUp}
           >
             Top Up
           </Button>
         </div>
 
-        <div className='w-full mt-5 grid grid-cols-3 gap-y-5 items-center'>
+        <div className='w-full grid grid-cols-2 gap-y-5 gap-x-5 items-center mt-10  md:mt-5  md:grid-cols-3'>
           {TopUpNumbers.map((value) => (
             <Button
               onClick={handleValueTopup}
               value={value}
-              classname={'border w-40 '}
+              classname={'border w-full '}
             >
               {`Rp${value.toLocaleString('id-ID')}`}
             </Button>
