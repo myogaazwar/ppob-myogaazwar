@@ -59,11 +59,13 @@ const Home = () => {
                 className='w-full flex-wrap flex flex-col gap-y-2 items-center'
               >
                 <img
-                  className='w-14 h-14 max-w-fit'
+                  className='w-20 h-14 max-w-fit'
                   src={service.service_icon}
                   alt={service.service_name}
                 />
-                <p className='text-sm text-center'>{service.service_name}</p>
+                <p className='text-xs text-center w-20'>
+                  {service.service_name}
+                </p>
               </div>
             ))}
           </section>
