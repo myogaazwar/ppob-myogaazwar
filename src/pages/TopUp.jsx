@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const TopUp = () => {
   const [valueTopUp, setValueTopUp] = useState('');
+  const [successMessage, setSuccessMessage] = useState(false);
   const [errorMessageMinimum, setErroMessageMinimum] = useState(false);
 
   const TopUpNumbers = [10000, 20000, 50000, 100000, 250000, 500000];
@@ -23,9 +24,11 @@ const TopUp = () => {
       if (valueTopUp < 10000) {
         setErroMessageMinimum(true);
 
-        return setTimeout(() => {
+        setTimeout(() => {
           setErroMessageMinimum(false);
         }, 3000);
+
+        return;
       }
 
       const response = await axios.post(
@@ -39,10 +42,17 @@ const TopUp = () => {
       );
 
       console.log(response.data.message);
+      setSuccessMessage(true);
+
+      return response;
     } catch (error) {
       console.log(error);
+    } finally {
+      setTimeout(() => {
+        setSuccessMessage(false);
+      }, 5000);
+      location.reload();
     }
-    console.log(valueTopUp);
   };
 
   return (
@@ -59,6 +69,8 @@ const TopUp = () => {
               Nominal Rp10.000
             </p>
           )}
+
+          {successMessage && <p>Berhasil Top Up Sebesar {valueTopUp}</p>}
           <InputForm
             id={'valueTopUp'}
             name={'valueTopUp'}
