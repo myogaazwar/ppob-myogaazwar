@@ -50,7 +50,6 @@ const FormRegister = () => {
       );
       setSuccess(response.data.message);
       setError('');
-      // Optionally, clear the form
       setEmail('');
       setFirstName('');
       setLastName('');

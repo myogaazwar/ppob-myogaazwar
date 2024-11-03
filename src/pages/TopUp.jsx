@@ -28,9 +28,10 @@ const TopUp = () => {
             name={'valueTopUp'}
             type={'number'}
             min={10000}
-            max={100000}
+            max={1000000}
             value={valueTopUp}
             icon={<IoWalletOutline />}
+            onChange={handleValueTopup}
           />
           <Button
             classname={` ${
@@ -43,8 +44,9 @@ const TopUp = () => {
         </div>
 
         <div className='w-full grid grid-cols-2 gap-y-5 gap-x-5 items-center mt-10  md:mt-5  md:grid-cols-3'>
-          {TopUpNumbers.map((value) => (
+          {TopUpNumbers.map((value, index) => (
             <Button
+              key={index}
               onClick={handleValueTopup}
               value={value}
               classname={'border w-full '}

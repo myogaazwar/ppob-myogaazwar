@@ -24,20 +24,17 @@ const FormLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Validate email format
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       setError('Parameter email tidak sesuai format');
       return;
     }
 
-    // Validate password length
     if (password.length < 8) {
       setError('Password minimal 8 karakter');
       return;
     }
 
-    // Prepare login data
     const loginData = {
       email,
       password,
@@ -50,7 +47,6 @@ const FormLogin = () => {
       );
       setSuccess(response.data.message);
       setError('');
-      // Optionally, store the JWT token for future authenticated requests
       localStorage.setItem('token', response.data.data.token);
 
       navigate('/home');
