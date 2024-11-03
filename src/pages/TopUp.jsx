@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const TopUp = () => {
   const [valueTopUp, setValueTopUp] = useState('');
+  const [errorMessageMinimum, setErroMessageMinimum] = useState(false);
 
   const TopUpNumbers = [10000, 20000, 50000, 100000, 250000, 500000];
   const token = localStorage.getItem('token');
@@ -19,6 +20,14 @@ const TopUp = () => {
     e.preventDefault();
 
     try {
+      if (valueTopUp < 10000) {
+        setErroMessageMinimum(true);
+
+        return setTimeout(() => {
+          setErroMessageMinimum(false);
+        }, 3000);
+      }
+
       const response = await axios.post(
         'https://take-home-test-api.nutech-integrasi.com/topup',
         { top_up_amount: valueTopUp },
@@ -45,6 +54,11 @@ const TopUp = () => {
 
       <section className='xl:flex gap-x-5'>
         <div className='w-full flex flex-col gap-y-5'>
+          {errorMessageMinimum && (
+            <p className='text-red-600 italic font-semibold text-right'>
+              Nominal Rp10.000
+            </p>
+          )}
           <InputForm
             id={'valueTopUp'}
             name={'valueTopUp'}
