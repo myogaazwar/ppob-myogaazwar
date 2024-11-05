@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         element: <TopUp />,
       },
       {
-        path: 'transactions',
+        path: 'transaction',
         element: <Transaction />,
       },
     ],
