@@ -119,7 +119,7 @@ const Header = () => {
       </div>
 
       {loading ? null : (
-        <section className='w-full px-4  mt-5 flex flex-col gap-y-4 md:flex-row  md:max-w-7xl md:mx-auto'>
+        <section className='w-full px-4 xl:px-0 mt-5 flex flex-col gap-y-4 md:flex-row  md:max-w-7xl md:mx-auto'>
           <div className='w-full flex flex-col gap-y-2'>
             <img className='w-20' src={imageProfile} alt='' />
             <div>

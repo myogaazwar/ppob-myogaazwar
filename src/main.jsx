@@ -9,6 +9,7 @@ import ProtectedRoute from './middleware/ProtectedRoute.jsx';
 import HomeLayout from './components/Layouts/HomeLayout.jsx';
 import TopUp from './pages/TopUp.jsx';
 import NotFound from './pages/NotFound.jsx';
+import Transaction from './pages/transaction.jsx';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: 'top-up',
         element: <TopUp />,
+      },
+      {
+        path: 'transaction',
+        element: <Transaction />,
       },
     ],
   },
