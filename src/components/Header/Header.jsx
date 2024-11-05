@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/WebsiteAssets/Logo.png';
 import profileImageDefault from '../../assets/WebsiteAssets/Profile Photo.png';
-import NavItem from './NavItem';
+
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
+import NavItem from './NavItem';
+import { UserBalanceContext } from '../Layouts/HomeLayout';
+
 const Header = () => {
+  const { userBalance } = useContext(UserBalanceContext);
+
   const [users, setUsers] = useState([]);
-  const [usersBalance, setUsersBalance] = useState([]);
   const [viewBalance, setViewBalance] = useState(false);
   const [loading, setLoading] = useState(true);
   const [openNavItem, setOpenNavItem] = useState(false);
@@ -46,17 +50,7 @@ const Header = () => {
           }
         );
 
-        const userBalanceResponse = await axios.get(
-          'https://take-home-test-api.nutech-integrasi.com/balance',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
         setUsers(userProfileResponse.data.data);
-        setUsersBalance(userBalanceResponse.data.data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -137,8 +131,9 @@ const Header = () => {
 
           <div className=' w-full bg-red-500 text-white rounded-xl p-5 flex flex-col gap-y-2 justify-center'>
             <p className='text-sm'>Saldo anda</p>
-            <h3 className='text-xl font-semibold'>
-              Rp {viewBalance ? usersBalance.balance : '********'}
+            <h3 className='text-2xl font-semibold'>
+              Rp{' '}
+              {viewBalance ? userBalance.toLocaleString('id-ID') : '********'}
             </h3>
 
             <button

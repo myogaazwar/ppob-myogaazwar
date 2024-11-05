@@ -1,58 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '../components/Elements/Button/Button';
 import InputForm from '../components/Elements/Input/Index';
 
 import { IoWalletOutline } from 'react-icons/io5';
-import axios from 'axios';
+import { UserBalanceContext } from '../components/Layouts/HomeLayout';
 
 const TopUp = () => {
-  const [valueTopUp, setValueTopUp] = useState('');
-  const [successMessage, setSuccessMessage] = useState(false);
-  const [errorMessageMinimum, setErroMessageMinimum] = useState(false);
+  const {
+    setAlertModalTopUp,
+    setLoadingTopUpBalance,
+    valueTopUp,
+    setValueTopUp,
+  } = useContext(UserBalanceContext);
+
+  const [errorMessagetopUp, setErrorMessageTopUp] = useState(false);
 
   const TopUpNumbers = [10000, 20000, 50000, 100000, 250000, 500000];
-  const token = localStorage.getItem('token');
+  const maximumTopUp = valueTopUp > 1000000;
+  const minimumTopUp = valueTopUp < 10000;
 
   const handleValueTopup = (e) => {
     setValueTopUp(e.target.value);
   };
 
-  const handleTopUp = async (e) => {
+  const handleButtonTopUp = async (e) => {
     e.preventDefault();
 
-    try {
-      if (valueTopUp < 10000) {
-        setErroMessageMinimum(true);
+    if (maximumTopUp || minimumTopUp) {
+      setErrorMessageTopUp(true);
 
-        setTimeout(() => {
-          setErroMessageMinimum(false);
-        }, 3000);
-
-        return;
-      }
-
-      const response = await axios.post(
-        'https://take-home-test-api.nutech-integrasi.com/topup',
-        { top_up_amount: valueTopUp },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log(response.data.message);
-      setSuccessMessage(true);
-
-      return response;
-    } catch (error) {
-      console.log(error);
-    } finally {
       setTimeout(() => {
-        setSuccessMessage(false);
-      }, 5000);
-      location.reload();
+        setErrorMessageTopUp(false);
+      }, 3000);
+
+      setLoadingTopUpBalance(false);
+      return;
     }
+
+    setAlertModalTopUp(true);
   };
 
   return (
@@ -61,16 +46,14 @@ const TopUp = () => {
         <p>Silahkan masukan</p>
         <h1 className='font-semibold text-xl'>Nominal Top Up</h1>
       </div>
-
+      {errorMessagetopUp && (
+        <p className='text-red-600 italic font-semibold text-right my-5'>
+          {maximumTopUp && 'Maximum Top Up Rp 1.000.000'}
+          {minimumTopUp && 'Minimum Top Up Rp 10.000'}
+        </p>
+      )}
       <section className='xl:flex gap-x-5'>
         <div className='w-full flex flex-col gap-y-5'>
-          {errorMessageMinimum && (
-            <p className='text-red-600 italic font-semibold text-right'>
-              Nominal Rp10.000
-            </p>
-          )}
-
-          {successMessage && <p>Berhasil Top Up Sebesar {valueTopUp}</p>}
           <InputForm
             id={'valueTopUp'}
             name={'valueTopUp'}
@@ -82,7 +65,7 @@ const TopUp = () => {
             onChange={handleValueTopup}
           />
           <Button
-            onClick={handleTopUp}
+            onClick={handleButtonTopUp}
             classname={` ${
               valueTopUp ? 'bg-red-500' : 'bg-stone-300'
             }  text-white font-semibold`}
@@ -98,7 +81,9 @@ const TopUp = () => {
               key={index}
               onClick={handleValueTopup}
               value={value}
-              classname={'border w-full '}
+              classname={
+                'border w-full hover:border-4 transition-all duration-200 '
+              }
             >
               {`Rp${value.toLocaleString('id-ID')}`}
             </Button>
