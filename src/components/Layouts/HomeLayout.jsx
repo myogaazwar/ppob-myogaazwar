@@ -46,7 +46,7 @@ const HomeLayout = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'https://take-home-test-api.nutech-integrasi.com/topup', //ini rapihin yog
+        'https://take-home-test-api.nutech-integrasi.com/topup',
         { top_up_amount: valueTopUp },
         {
           headers: {
@@ -117,7 +117,7 @@ const HomeLayout = () => {
           <AlertNotification
             status={'berhasil!'}
             image={iconSuccess}
-            value={valueTopUp}
+            value={`Rp${parseInt(valueTopUp, 10).toLocaleString('id-ID')}`}
             onClick={handleCloseAlert}
           />
         )}
@@ -125,7 +125,7 @@ const HomeLayout = () => {
         {alertModalTopUp && (
           <AlertModal
             image={walletImg}
-            value={valueTopUp}
+            value={`Rp${parseInt(valueTopUp, 10).toLocaleString('id-ID')}`}
             onContinue={handleConfirmationTopUp}
             onCancel={handleCloseAlertModal}
           />
@@ -135,7 +135,7 @@ const HomeLayout = () => {
           <AlertNotification
             status={'gagal'}
             image={iconError}
-            value={valueTopUp}
+            value={`Rp${parseInt(valueTopUp, 10).toLocaleString('id-ID')}`}
             onClick={handleCloseAlert}
           />
         )}
