@@ -21,7 +21,9 @@ const Transaction = () => {
         }
       );
 
-      setHistoryTransactions(response.data.data.records);
+      const transactions = response.data.data.records;
+
+      setHistoryTransactions(transactions);
     } catch (error) {
       console.log(error);
     }
@@ -32,13 +34,12 @@ const Transaction = () => {
   }, [defaultLimit]);
 
   const handleShowMore = () => {
-    setDefaultLimit((prev) => prev + defaultLimit);
+    setDefaultLimit((prev) => prev + prev);
   };
 
   return (
     <main className='mt-14 flex flex-col gap-y-5'>
       <h2 className='text-lg font-semibold'>Semua Transaksi</h2>
-
       {historyTransactions.map((history) => {
         const date = new Date(history.created_on);
         const formattedDate = new Intl.DateTimeFormat('id-ID', {
@@ -64,13 +65,14 @@ const Transaction = () => {
           />
         );
       })}
-
-      <Button
-        onClick={handleShowMore}
-        classname={'text-red-500 font-semibold hover:font-bold w-fit mx-auto'}
-      >
-        Show More
-      </Button>
+      {defaultLimit > historyTransactions.length ? null : (
+        <Button
+          onClick={handleShowMore}
+          classname={'text-red-500 font-semibold hover:font-bold w-fit mx-auto'}
+        >
+          Show More
+        </Button>
+      )}
     </main>
   );
 };
