@@ -39,7 +39,12 @@ const Transaction = () => {
 
   return (
     <main className='mt-14 flex flex-col gap-y-5'>
-      <h2 className='text-lg font-semibold'>Semua Transaksi</h2>
+      <h2 className='text-lg font-semibold'>
+        {historyTransactions.length === 0
+          ? 'Tidak ada transaksi'
+          : 'Semua Transaksi'}
+      </h2>
+
       {historyTransactions.map((history) => {
         const date = new Date(history.created_on);
         const formattedDate = new Intl.DateTimeFormat('id-ID', {
