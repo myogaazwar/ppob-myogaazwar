@@ -1,4 +1,14 @@
-const Input = ({ id, name, type, placeholder, value, onChange, min, max }) => {
+const Input = ({
+  id,
+  name,
+  type,
+  placeholder,
+  value,
+  onChange,
+  min,
+  max,
+  disabled,
+}) => {
   return (
     <input
       id={id}
@@ -9,7 +19,10 @@ const Input = ({ id, name, type, placeholder, value, onChange, min, max }) => {
       value={value}
       min={min}
       maxLength={max}
-      className='w-full px-2 pl-8 h-10 border rounded-md outline-none  focus:border-red-600 placeholder:text-sm text-sm text-slate-500 '
+      disabled={disabled}
+      className={`${
+        disabled && 'bg-white'
+      } w-full px-2 pl-8 h-10 border rounded-md outline-none  focus:border-red-600 placeholder:text-sm text-sm text-slate-500 `}
     />
   );
 };
