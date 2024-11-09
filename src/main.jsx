@@ -10,15 +10,25 @@ import HomeLayout from './components/Layouts/HomeLayout.jsx';
 import TopUp from './pages/TopUp.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Transaction from './pages/Transaction.jsx';
+import Account from './pages/Account.jsx';
+import ProtectedLogin from './middleware/ProtectedLogin.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Login />,
+    element: (
+      <ProtectedLogin>
+        <Login />
+      </ProtectedLogin>
+    ),
   },
   {
     path: '/register',
-    element: <Register />,
+    element: (
+      <ProtectedLogin>
+        <Register />
+      </ProtectedLogin>
+    ),
   },
 
   {
@@ -40,6 +50,11 @@ const router = createBrowserRouter([
       {
         path: 'transaction',
         element: <Transaction />,
+      },
+
+      {
+        path: 'account',
+        element: <Account />,
       },
     ],
   },
